@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour {
 
-	public void LoadGame() {
-		SceneManager.LoadScene("Game");
-		Debug.Log("Level load requested for main game");
+	public void LoadLevel(string name) {
+		Debug.Log("Level load requested for: " + name);
+		SceneManager.LoadScene(name);
 	}
 }
