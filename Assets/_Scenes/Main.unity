@@ -138,7 +138,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -823,7 +823,7 @@ GameObject:
   - component: {fileID: 1957509607}
   - component: {fileID: 1957509609}
   m_Layer: 5
-  m_Name: ClickToContinue
+  m_Name: ClickHereToContinue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -845,7 +845,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.000015259, y: -328.2}
-  m_SizeDelta: {x: 150, y: 30}
+  m_SizeDelta: {x: 180, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1957509607
 MonoBehaviour:
@@ -879,7 +879,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: (Click to continue)
+  m_Text: (Click here to continue)
 --- !u!222 &1957509608
 CanvasRenderer:
   m_ObjectHideFlags: 0
