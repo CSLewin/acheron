@@ -8,16 +8,16 @@ public class PlayerDataController : MonoBehaviour {
 
 // Some values to mess with
 string PlayerName = "Nameless Vagabond";
-int PlayerCurrentHealth = 15;
-int PlayerMaximumHealth = 15;
-int CombatSkill = 40;
-int DiplomacySkill = 50;
-int MechanicsSkill = 60;
+int playerCurrentHealth = 15;
+int playerMaximumHealth = 15;
+int combatSkill = 40;
+int diplomacySkill = 50;
+int mechanicsSkill = 60;
 // end of values to mess with (and visual separator)
 
 string PlayerStats;
 
-public Text PlayerStatsDisplayer; //only use this to display the player's stats on the screen. 
+public Text PlayerStatsDisplayer; //only use this to display the player's stats on the screen.
 
 //A simple percentile dicerolling function that retuns "pass" or "fail" and prints some appropriate text to the console.
 public string Roll (int skill) {
@@ -44,11 +44,11 @@ public string Roll (int skill) {
 	void PrintStats() {
 		PlayerStats = 
 			"You are known as '" + PlayerName + "'.\n" +
-			"Your current health is " + PlayerCurrentHealth + "/" + PlayerMaximumHealth + ".\n" +
+			"Current health: " + playerCurrentHealth + "/" + playerMaximumHealth + ".\n" +
 			"Your skills are: \n" + 
-			"\tCombat (" + CombatSkill + "%)\n" + 
-			"\tDiplomacy (" + DiplomacySkill + "%)\n" + 
-			"\tMechanics (" + MechanicsSkill + "%).\n";
+			"\tCombat (" + combatSkill + "%)\n" + 
+			"\tDiplomacy (" + diplomacySkill + "%)\n" + 
+			"\tMechanics (" + mechanicsSkill + "%).\n";
 		PlayerStatsDisplayer.text = PlayerStats;
 	}
 
