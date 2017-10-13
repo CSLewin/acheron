@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class TestingScript : MonoBehaviour {
 
-// TODO
-// When the player dies, ask if they want to restart the game
-
 string HeroName = "Captain Basharat Wellington";
 int HeroCombatPower = 60;
 int HeroHealthMax = 100;

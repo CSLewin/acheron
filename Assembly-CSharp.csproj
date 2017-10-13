@@ -51,12 +51,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\EnemyDataController.cs" />
-     <Compile Include="Assets\Scripts\GameActionDisplayController.cs" />
-     <Compile Include="Assets\Scripts\LevelManager.cs" />
-     <Compile Include="Assets\Scripts\MusicPlayer.cs" />
-     <Compile Include="Assets\Scripts\PlayerDataController.cs" />
-     <Compile Include="Assets\Scripts\TestingScript.cs" />
+     <Compile Include="Assets\Scripts\Creature.cs" />
+     <Compile Include="Assets\Scripts\Main.cs" />
+     <Compile Include="Assets\Scripts\Old Scripts\EnemyDataController.cs" />
+     <Compile Include="Assets\Scripts\Old Scripts\GameActionDisplayController.cs" />
+     <Compile Include="Assets\Scripts\Old Scripts\LevelManager.cs" />
+     <Compile Include="Assets\Scripts\Old Scripts\MusicPlayer.cs" />
+     <Compile Include="Assets\Scripts\Old Scripts\PlayerDataController.cs" />
+     <Compile Include="Assets\Scripts\Old Scripts\TestingScript.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>J:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
