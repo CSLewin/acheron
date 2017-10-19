@@ -1,6 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Main.cs">
+    <Files>
+      <File FileName="Assets\Scripts\Creature.cs" Line="124" Column="3" />
+      <File FileName="Assets\Scripts\FoePicker.cs" Line="7" Column="1" />
+      <File FileName="Assets\Scripts\Main.cs" Line="64" Column="116" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

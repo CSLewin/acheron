@@ -1,4 +1,3 @@
-J:\Unity Projects\Acheron\acheron\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 J:\Unity Projects\Acheron\acheron\Temp\bin\Debug\Assembly-CSharp.dll
 J:\Unity Projects\Acheron\acheron\Temp\bin\Debug\Assembly-CSharp.pdb
 J:\Unity Projects\Acheron\acheron\Temp\bin\Debug\nunit.framework.dll
@@ -28,5 +27,6 @@ J:\Unity Projects\Acheron\acheron\Temp\bin\Debug\nunit.framework.xml
 J:\Unity Projects\Acheron\acheron\Temp\bin\Debug\UnityEngine.Timeline.xml
 J:\Unity Projects\Acheron\acheron\Temp\bin\Debug\UnityEngine.Analytics.xml
 J:\Unity Projects\Acheron\acheron\Temp\bin\Debug\UnityEngine.HoloLens.xml
+J:\Unity Projects\Acheron\acheron\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 J:\Unity Projects\Acheron\acheron\obj\Debug\Assembly-CSharp.dll
 J:\Unity Projects\Acheron\acheron\obj\Debug\Assembly-CSharp.pdb
