@@ -5,7 +5,7 @@ using UnityEngine;
 public class Creature {
 
 	// All Creatures have the following properties:
-	private string creatureName;
+	protected string creatureName;
 	private int combatPower;
 	private string weaponName;
 	private int weaponDamage;
@@ -110,27 +110,28 @@ public class Creature {
 		this.setCombatPower (getCombatPower () + combatPowerBonus);
 	}
 
-	// Hero is a subclass of creature, inheriting all the properties thereof and having at least one additional property.
-	public class Hero : Creature {
+}
 
-		private int foesDefeated;
 
-		public Hero (string name, int combatPower, string weaponName, int weaponDamage, int maxHealth, int foesDefeated)
-			: base (name, combatPower, weaponName, weaponDamage, maxHealth)
-		{
-			this.creatureName = "<color=#f7d171>" + name + "</color>"; // While all creature names are bold, the hero's name should always be a fancy gold color.
-			this.foesDefeated = 0;
-		}
+// Hero is a subclass of creature, inheriting all the properties thereof and having at least one additional property.
+public class Hero : Creature {
 
-		public void addDefeatedFoe ()
-		{
-			foesDefeated++;
-		}
+	private int foesDefeated;
 
-		public int getFoesDefeated ()
-		{
-			return foesDefeated;
-		}
+	public Hero (string name, int combatPower, string weaponName, int weaponDamage, int maxHealth, int foesDefeated)
+		: base (name, combatPower, weaponName, weaponDamage, maxHealth)
+	{
+		this.creatureName = "<color=#f7d171>" + name + "</color>"; // While all creature names are bold, the hero's name should always be a fancy gold color.
+		this.foesDefeated = 0;
 	}
 
+	public void addDefeatedFoe ()
+	{
+		foesDefeated++;
+	}
+
+	public int getFoesDefeated ()
+	{
+		return foesDefeated;
+	}
 }
