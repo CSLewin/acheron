@@ -1,5 +1,5 @@
 WebGL
-9b008fd5abda7e126520770e3a7e9a13 Assembly-CSharp.dll:.Main
+e3f81cd98f08c26dafbd1697d99a7ba8 Assembly-CSharp.dll:.Main
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.LevelManager
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.MusicPlayer
 bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.AudioSpatializerMicrosoft
@@ -132,3 +132,4 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.Spa
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.SpatialMappingRenderer
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInput
 463516d5b5fe8e67a0a24c48f2095b04 UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInputModule
+0d480770d158ff7cd69b3918fa30275c Assembly-CSharp.dll:.GameOverTextController

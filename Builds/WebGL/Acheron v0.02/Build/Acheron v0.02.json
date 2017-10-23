@@ -1,0 +1,9 @@
+{
+"TOTAL_MEMORY": 268435456,
+"dataUrl": "Acheron v0.02.data.unityweb",
+"asmCodeUrl": "Acheron v0.02.asm.code.unityweb",
+"asmMemoryUrl": "Acheron v0.02.asm.memory.unityweb",
+"asmFrameworkUrl": "Acheron v0.02.asm.framework.unityweb",
+"splashScreenStyle": "Dark",
+"backgroundColor": "#231F20"
+}

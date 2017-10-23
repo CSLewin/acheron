@@ -394,7 +394,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: (Murderhobo Simulator v0.01)
+  m_Text: (Murderhobo Simulator v0.02)
 --- !u!222 &632701317
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -597,7 +597,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'You are a nameless vagabond of vanishing consequence.
+  m_Text: 'You are Captain Basharat Wellington, a vagabond of dubious provenance.
 
 
     Arrested for vagrancy, you have been cast down into Acheron, the fathomless dungeon
@@ -605,8 +605,8 @@ MonoBehaviour:
     at the end of which you will find only the interrobang of a brutal, gory death.
 
 
-    Already, you hear footsteps approaching you. You lift your meager armaments and
-    prepare for combat...'
+    Already, you hear something approaching you. You draw your silver-chased tulwar
+    and prepare for desperate combat...'
 --- !u!222 &1015253936
 CanvasRenderer:
   m_ObjectHideFlags: 0

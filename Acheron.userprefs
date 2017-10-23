@@ -1,17 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Main.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Main.cs">
     <Files>
-      <File FileName="Assets/Scripts/Creature.cs" Line="16" Column="51" />
-      <File FileName="Assets/Scripts/Main.cs" Line="98" Column="2" />
+      <File FileName="Assets\Scripts\Creature.cs" Line="13" Column="26" />
+      <File FileName="Assets\Scripts\Main.cs" Line="94" Column="70" />
+      <File FileName="Assets\Scripts\Housekeeping\GameOverTextController.cs" Line="13" Column="43" />
+      <File FileName="Assets\Scripts\Housekeeping\MusicPlayer.cs" Line="23" Column="18" />
     </Files>
-    <Pads>
-      <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State name="__root__">
-          <Node name="Acheron" expanded="True" selected="True" />
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

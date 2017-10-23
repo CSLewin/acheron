@@ -99,7 +99,7 @@ public class Creature {
 	public string getName ()
 	{
 		//return creatureName;
-		return "<b>" + creatureName + "</b>"; // always display a creature's name in bold
+		return "<b><color=purple>" + creatureName + "</color></b>"; // always display a creature's name in bold
 	}
 
 	// Run this function on any creature you want to empower; say, after defeating a given number of foes.

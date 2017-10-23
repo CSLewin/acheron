@@ -439,7 +439,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Back
+  m_Text: Restart
 --- !u!222 &1719412421
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -599,7 +599,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 18
+    m_FontSize: 25
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -610,7 +610,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Game text should appear here
+  m_Text: Game text appears here
 --- !u!222 &1871294496
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -739,8 +739,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 437, y: -369}
-  m_SizeDelta: {x: 150, y: 30}
+  m_AnchoredPosition: {x: 414.3, y: -369}
+  m_SizeDelta: {x: 195.3, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1922143072
 MonoBehaviour:
@@ -826,7 +826,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Game Over
+  m_Text: Give In To Despair
 --- !u!222 &1922143074
 CanvasRenderer:
   m_ObjectHideFlags: 0

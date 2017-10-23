@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Main : MonoBehaviour {
 
 	public Text displayText = null;
-	public bool statsBeingDisplayed = false;
-
 
 	Hero hero = new Hero("Captain Basharat Wellington", 60, "silver-chased tulwar", 15, 100, 0);
 	Creature foe = new Creature("Test Goblin", 30, "poo-covered stick", 5, 35);
 
-
+	private int combatRound = 0;
+	public static int killcount;
+	public static string playerKilledBy = "**DEBUGVALUE**";
+	public static string playerName = "**DEBUGVALUE**"; 
 
 	void Awake () {
 		displayText.text = null;
+		playerName = hero.getName();
 		}
 
 	// Use this for initialization
@@ -24,7 +27,7 @@ public class Main : MonoBehaviour {
 		foe = SpawnEnemy();
 		Debug.Log("SpawnEnemy has selected " + foe.getName());
 
-		AnnounceStats ();
+		DisplayStats();
 
 		}
 	
@@ -33,25 +36,31 @@ public class Main : MonoBehaviour {
 
 		if (Input.GetKeyDown (KeyCode.A)) {
 			CombatSequence ();
-		}
-
-		// Core combat loop: 
-			// spawn enemy -> announce stats -> combat rounds -> 
-				// (victory -> levelup -> spawn enemy) 
-					// OR 
-				// (defeat -> housekeeping -> restart/quit)
-		}
-
-	public void CombatSequence(){
-		AnnounceStats ();
-
-		//hero attacks foe
-		Fight (hero, foe);
-		if (foe.isDead()) {
-			HeroVictory ();
-		} else Fight (foe, hero);
+			}
 
 	}
+
+	public void CombatSequence () {
+		//clear the UI 
+		displayText.text = null;
+		combatRound++;
+		displayText.text += "* * * * ROUND " + combatRound + " * * * *\n\n";
+		//hero attacks foe
+		Fight (hero, foe);
+		if (foe.isDead ()) {
+			//if foe is slain, clear the UI, announce foe slain, level up the hero, and display the new hero stats
+			HeroVictory ();
+			//update and display stats, then wait for a button press to start Combat Sequence over.
+			//DisplayStats ();
+		} else {
+			Fight (foe, hero); //if foe is NOT dead, foe attacks hero;
+			if (hero.isDead ()) {
+				playerKilledBy = foe.getName();
+				GameOver();
+			} else DisplayStats ();
+		}
+	}
+
 
 	public Creature SpawnEnemy () {
 		int EnemyPicker = Random.Range(1,10);
@@ -64,27 +73,25 @@ public class Main : MonoBehaviour {
 			if (EnemyPicker == 7) {return new Creature("Frothing Jotunkin", Random.Range(55,65), "etched iron mallet", 25, 70);}
 			if (EnemyPicker == 8) {return new Creature("Seething Rune-Slave", Random.Range(55,65), "crushing grasp", 25, 70);}
 			if (EnemyPicker == 9) {return new Creature("Serpent-Priest Yddremel The Devoted", Random.Range(55,65), "crashing ophidian spellcraft", 45, 70);}
-				else throw new System.InvalidOperationException("You've somehow rolled an 11 on a d10. Go look at SpawnEnemy().");
+				else throw new System.InvalidOperationException("You've somehow rolled an 11 on a d10. This is a problem. Go look at SpawnEnemy().");
 		}
 
-	public void AnnounceStats() {
-		displayText.text = hero.getName () + " has a Combat Power of " + hero.getCombatPower () + " and " +
-			"<color=#00ff00ff>" + hero.getCurrentHealth () + "/" + hero.getMaxHealth () + "</color>" + " health.\n\n";
+	public void AnnounceStats(Creature creature) {
+		displayText.text += creature.getName () + " has a Combat Power of " + creature.getCombatPower () + " and " +
+			"<color=#00ff00ff>" + creature.getCurrentHealth () + "/" + creature.getMaxHealth () + "</color>" + " health.\n";
+		displayText.text += "Their " + creature.getWeaponName () + " will strike for " + "<b><color=red>" + creature.getWeaponDamage () + "</color></b>" + 
+			" (or <b><color=red>" + 2 * creature.getWeaponDamage () + "</color></b> on a critical hit.)\n\n";
+	}
 
-		displayText.text += hero.getName () + "'s " + hero.getWeaponName () + " will deal " + "<b><color=red>" + hero.getWeaponDamage () + "</color></b>" + " damage on a successful strike.\n";
-		displayText.text += "A critical hit from the weapon will deal " + "<b><color=red>" + 2 * hero.getWeaponDamage () + "</color></b>" + " damage.\n\n";
+	public void DisplayStats() {
+		displayText.text += "* * * * * * * * * *\n";
+		AnnounceStats (hero);
 
-		displayText.text += "* * * * * * * * * *\n\n";
+		AnnounceStats (foe);
 
-		displayText.text += foe.getName () + " has a Combat Power of " + foe.getCombatPower () + " and " +
-			"<color=#00ff00ff>" + foe.getCurrentHealth () + "/" + foe.getMaxHealth () + "</color>" + " health.\n\n";
+		displayText.text += "* * * * * * * * * *\n";
 
-		displayText.text += foe.getName () + "'s " + foe.getWeaponName () + " will deal " + "<b><color=red>" + foe.getWeaponDamage () + "</color></b>" + " damage on a successful strike.\n";
-		displayText.text += "A critical hit from the weapon will deal " + "<b><color=red>" + 2 * foe.getWeaponDamage () + "</color></b>" + " damage.\n\n";
-
-		displayText.text += "* * * * * * * * * *\n\n";
-
-		displayText.text += "Press (A) to initiate a round of combat.\n\n";
+		displayText.text += "Press (A) to attack " + foe.getName() + "!\n\n";
 	}
 
 	public void Fight (Creature attacker, Creature defender) {
@@ -94,6 +101,7 @@ public class Main : MonoBehaviour {
 			int damage = attacker.getWeaponDamage();
 			defender.applyDamage(2 * damage);
 			displayText.text += defender.getName () + " takes " + 2 * damage + " damage.\n\n";
+			AudioSource.PlayClipAtPoint
 		
 		} else if (roll <= attacker.getCombatPower ()) {
 			displayText.text += attacker.getName () + " rolled " + roll + " under " + attacker.getCombatPower () + "--a hit!\n";
@@ -102,25 +110,32 @@ public class Main : MonoBehaviour {
 			displayText.text += defender.getName () + " takes " + damage + " damage.\n\n";
 		
 		} else if (roll > attacker.getCombatPower ()) {
-			displayText.text += attacker.getName () + " rolled " + roll + " over " + attacker.getCombatPower () + ". " + attacker.getName() + " misses!\n\n";
+			displayText.text += attacker.getName () + " rolled " + roll + " over " + attacker.getCombatPower () + "--a miss!\n\n";
 		}
 	}
 
-	public void HeroVictory() {
+	public void HeroVictory ()
+	{
+		displayText.text = null;
 		displayText.text = foe.getName () + " is slain!\n";
 		hero.addDefeatedFoe ();
-		displayText.text += hero.getName () + " has triumphed over " + hero.getFoesDefeated() + " foes.\n\n";
+		if (hero.getFoesDefeated () == 1) {
+			displayText.text += hero.getName () + " has triumphed over a single foe.\n\n";
+		} else displayText.text += hero.getName () + " has triumphed over " + hero.getFoesDefeated () + " foes.\n\n";
+		killcount= hero.getFoesDefeated();
 		int levelUpHealthBonus = 10;
 		int levelUpCombatPowerBonus = 2;
 		hero.levelUp (levelUpHealthBonus,levelUpCombatPowerBonus);
-		displayText.text += hero.getName () + " binds their wounds, gathers greater strength and prepares for the next challenge.\n\n";
-		displayText.text += hero.getName () + "'s maximum and current health improved by " + levelUpHealthBonus + "!\n\n";
-		displayText.text += hero.getName () + " has learned a few new tricks; their Combat Power has improved by " + levelUpCombatPowerBonus + "!\n\n";
-		displayText.text += "* * * * * * * * * *\n\n";
-		displayText.text += "Press (A) to enter combat with a new foe!\n\n";
-		foe = SpawnEnemy();
+		displayText.text += "Victory in Acheron brings power--wounds knit and skills are honed.\n\n";
+		displayText.text += hero.getName () + "'s maximum and current health improve by " + "<color=#00ff00ff>" + levelUpHealthBonus + "</color>" + ". Combat Power improves by " + levelUpCombatPowerBonus + "!\n\n";
+		foe = SpawnEnemy ();
+		displayText.text += foe.getName() + " suddenly approaches, ready to do battle.\n\n";
+		DisplayStats ();
+		}
+
+	public void GameOver ()	{
+		SceneManager.LoadScene("GameOver");
 	}
 
 
 	}
-	
