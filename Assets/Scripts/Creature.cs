@@ -6,17 +6,17 @@ public class Creature {
 
 	// All Creatures have the following properties:
 	protected string creatureName;
-	private int combatPower;
+	private int combatSkill;
 	private string weaponName;
 	private int weaponDamage;
 	private int maxHealth;
 	private int damageTaken;
 
 	// This is the object that'll get called with parameters in order to actually create a monster.
-	public Creature (string name, int combatPower, string weaponName, int weaponDamage, int maxHealth)	
+	public Creature (string name, int combatSkill, string weaponName, int weaponDamage, int maxHealth)	
 	{
 		this.creatureName = name;
-		this.combatPower = combatPower;
+		this.combatSkill = combatSkill;
 		this.weaponName = weaponName;
 		this.weaponDamage = weaponDamage;
 		this.maxHealth = maxHealth;
@@ -64,14 +64,14 @@ public class Creature {
 	}
 
 	// functions for getting and setting combat power
-	public int getCombatPower ()
+	public int getCombatSkill ()
 	{
-		return combatPower;
+		return combatSkill;
 	}
 
-	protected void setCombatPower (int combatPower)
+	protected void setCombatSkill (int combatSkill)
 	{
-		this.combatPower = combatPower;
+		this.combatSkill = combatSkill;
 	}
 
 	// functions for getting and setting weapon name and damage
@@ -102,14 +102,6 @@ public class Creature {
 		return "<b><color=purple>" + creatureName + "</color></b>"; // always display a creature's name in bold
 	}
 
-	// Run this function on any creature you want to empower; say, after defeating a given number of foes.
-	public void levelUp (int healthBonus, int combatPowerBonus)
-	{
-		this.setMaxHealth (getMaxHealth () + healthBonus);
-		this.healDamage (healthBonus);
-		this.setCombatPower (getCombatPower () + combatPowerBonus);
-	}
-
 }
 
 
@@ -117,12 +109,36 @@ public class Creature {
 public class Hero : Creature {
 
 	private int foesDefeated;
+	private int mechanicalSkill;
+	private int diplomacySkill;
 
-	public Hero (string name, int combatPower, string weaponName, int weaponDamage, int maxHealth, int foesDefeated)
-		: base (name, combatPower, weaponName, weaponDamage, maxHealth)
+	public Hero (string name, int combatSkill, int mechanicalSkill, int diplomacySkill, string weaponName, int weaponDamage, int maxHealth, int foesDefeated)
+		: base (name, combatSkill, weaponName, weaponDamage, maxHealth)
 	{
 		this.creatureName = "<color=#f7d171>" + name + "</color>"; // While all creature names are bold, the hero's name should always be a fancy gold color.
+		this.mechanicalSkill = mechanicalSkill;
+		this.diplomacySkill = diplomacySkill;
 		this.foesDefeated = 0;
+	}
+
+	public int getMechanicalSkill ()
+	{
+		return mechanicalSkill;
+	}
+
+	protected void setMechanicalSkill (int mechanicalSkill)
+	{
+		this.mechanicalSkill = mechanicalSkill;
+	}
+
+	public int getDiplomacySkill ()
+	{
+		return diplomacySkill;
+	}
+
+	protected void setDiplomacySkill (int diplomacySkill)
+	{
+		this.diplomacySkill = diplomacySkill;
 	}
 
 	public void addDefeatedFoe ()
@@ -134,4 +150,14 @@ public class Hero : Creature {
 	{
 		return foesDefeated;
 	}
+
+	public void levelUp (int healthBonus, int combatSkillBonus, int mechanicalSkillBonus, int diplomacySkillBonus)
+	{
+		this.setMaxHealth (getMaxHealth () + healthBonus);
+		this.healDamage (healthBonus);
+		this.setCombatSkill (getCombatSkill () + combatSkillBonus);
+		this.setMechanicalSkill (getMechanicalSkill () + mechanicalSkillBonus);
+		this.setDiplomacySkill (getDiplomacySkill () + diplomacySkillBonus);
+	}
+
 }
