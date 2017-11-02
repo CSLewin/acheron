@@ -54,7 +54,7 @@ public class Main : MonoBehaviour {
 	public string EncounterPicker ()
 	{
 		int picker = Random.Range (1, 3);
-		Debug.Log("Picker picked " + picker);
+		Debug.Log("1 is a monster, 2 is a trap. EncounterPicker picked " + picker);
 		if (picker == 1) 
 			{
 				encounterType = "enemy";
@@ -62,7 +62,6 @@ public class Main : MonoBehaviour {
 				displayText.text += foe.getName() + " suddenly approaches, ready to do battle.\n\n";
 				Debug.Log("SpawnEnemy has selected " + foe.getName());
 				DisplayStats();
-				displayText.text += "Press (A) to attack " + foe.getName() + "!\n\n";
 				return encounterType;
 			}
 		else if (picker == 2) 
@@ -77,7 +76,7 @@ public class Main : MonoBehaviour {
 				"Beware! Success guarantees safety; failure may result in GREIVOUS harm.\n\n" + 
 
 				"Press (L) to draw your weapon and smash the mechanism instead.\n" + 
-				"This will certainly activate the trap, but you'll be ready for it and <i>might</i> suffer lesser harm in the process.";
+				"This will certainly activate the trap, but you'll be ready for it and <i>might</i> suffer lesser harm in the process.\n\n";
 				return encounterType;
 			}
 		else throw new System.InvalidOperationException("EncounterPicker failed to pick either a Trap or an Enemy. How?");
@@ -168,8 +167,6 @@ public class Main : MonoBehaviour {
 		hero.applyDamage (trapDamage);
 		displayText.text += "A " + trap.getDamageDescription () + " inflicts " + trapDamage + " damage to " + hero.getName () + ".\n\n";
 
-		displayText.text += "Press (L) to smash the mechanism!\n\n";
-
 		// End this violence if either the hero or the trap are slain.
 		if (trap.isDead ()) {
 			trapTriggered = false;
@@ -179,21 +176,25 @@ public class Main : MonoBehaviour {
 				{
 					playerKilledBy = trap.getDamageDescription();
 					GameOver ();
-				}  else DisplayStats (); // I've commented this DisplayStats() out because it was showing a TEST GOBLIN result if you tried to disarm a trap and failed. I'm leaving it here as reference and example to myself.
+				}  else DisplayStats ();
 		}
 	}
 
-	public Creature SpawnEnemy () {
-		int EnemyPicker = Random.Range(1,10);
+	public Creature SpawnEnemy ()
+	{
+		int EnemyPicker = Random.Range ((hero.getFoesDefeated()/2), hero.getFoesDefeated());
+		if (EnemyPicker < 1) {EnemyPicker = 1;}
+		if (EnemyPicker > 9) {EnemyPicker = 9;}
+		Debug.Log("EnemyPicker rolled a " + EnemyPicker);
 			if (EnemyPicker == 1) {return new Creature("Animus Mold", Random.Range(15,26), "moldy bodyslam", 2, 30);}
 			if (EnemyPicker == 2) {return new Creature("Leering Svartælf", Random.Range(15,26), "jagged glassine spear", 2, 30);}
-			if (EnemyPicker == 3) {return new Creature("Escaped Sporehound", Random.Range(15,26), "saw-toothed gills", 5, 35);}
-			if (EnemyPicker == 4) {return new Creature("Knocker Clan Sapper", Random.Range(35,46), "rocksalt blunderbuss", 5, 50);}
-			if (EnemyPicker == 5) {return new Creature("Conquerer Legion Chainmaster", Random.Range(35,46), "barbed bronze scourge", 10, 50);}
-			if (EnemyPicker == 6) {return new Creature("Bog Priest", Random.Range(35,46), "charmed and blackened claws", 10, 50);}
-			if (EnemyPicker == 7) {return new Creature("Frothing Jotunkin", Random.Range(55,65), "etched iron mallet", 25, 70);}
-			if (EnemyPicker == 8) {return new Creature("Seething Rune-Slave", Random.Range(55,65), "crushing grasp", 25, 70);}
-			if (EnemyPicker == 9) {return new Creature("Serpent-Priest Yddremel", Random.Range(55,65), "crashing ophidian spellcraft", 45, 70);}
+			if (EnemyPicker == 3) {return new Creature("Escaped Sporehound", Random.Range(15,26), "saw-toothed gills", 5, 45);}
+			if (EnemyPicker == 4) {return new Creature("Knocker Clan Sapper", Random.Range(35,46), "rocksalt blunderbuss", 5, 45);}
+			if (EnemyPicker == 5) {return new Creature("Conquerer Legion Chainmaster", Random.Range(35,46), "barbed bronze scourge", 10, 60);}
+			if (EnemyPicker == 6) {return new Creature("Bog Priest", Random.Range(35,46), "charmed and blackened claws", 10, 60);}
+			if (EnemyPicker == 7) {return new Creature("Frothing Jotunkin", Random.Range(55,65), "etched iron mallet", 25, 75);}
+			if (EnemyPicker == 8) {return new Creature("Seething Rune-Slave", Random.Range(55,65), "crushing grasp", 25, 75);}
+			if (EnemyPicker == 9) {return new Creature("Serpent-Priest Yddremel", Random.Range(55,65), "crashing ophidian spellcraft", 45, 90);}
 				else throw new System.InvalidOperationException("EnemyPicker in SpawnEnemy() is returning something out of bounds.");
 		}
 
@@ -203,6 +204,7 @@ public class Main : MonoBehaviour {
 			if (TrapPicker == 1) {return new Trap ("a flagstone hallway marred by deep gouges in the stone", 0, "razored bronze crescent", Random.Range (3, 19), 20);}
 			if (TrapPicker == 2) {return new Trap ("a panel on the wall covered in suspicious holes", 1, "toxin-coated dart", Random.Range (3, 19), 20);}
 			if (TrapPicker == 3) {return new Trap ("cracks on the floor, above which is a bit of ceiling constructed from a single, large block", 2, "plummeting stone block", Random.Range (3, 19), 20);}
+			// This list should have a total of nine traps
 				else throw new System.InvalidOperationException("TrapPicker in SpawnTrap() is returning something out of bounds.");
 	}
 
@@ -234,10 +236,17 @@ public class Main : MonoBehaviour {
 		AnnounceHeroStats();
 
 		if (encounterType == "enemy") 
-			{AnnounceStats (foe);} 
+			{
+				AnnounceStats (foe);
+				displayText.text += "Press (A) to attack " + foe.getName() + "!\n\n";
+			} 
 		else if (encounterType == "trap") 
-			{AnnounceTrapStats (trap);}
+			{
+				AnnounceTrapStats (trap);
+				displayText.text += "Press (L) to smash the mechanism!\n\n";
+			}
 
+		
 		displayText.text += "* * * * * * * * * *\n";
 	}
 
@@ -272,7 +281,7 @@ public class Main : MonoBehaviour {
 			displayText.text += hero.getName () + " rolled " + roll + " under " + hero.getCombatSkill () + "--a hit!\n";
 			int damage = hero.getWeaponDamage();
 			trap.applyDamage(damage);
-			displayText.text += "The deadly mechaism takes " + damage + " damage.\n\n";
+			displayText.text += "The deadly mechanism takes " + damage + " damage.\n\n";
 		
 		} else if (roll > hero.getCombatSkill ()) {
 			displayText.text += hero.getName () + " rolled " + roll + " over " + hero.getCombatSkill () + "--a miss!\n\n";
@@ -303,11 +312,11 @@ public class Main : MonoBehaviour {
 		hero.levelUp (levelUpHealthBonus,levelUpCombatSkillBonus,levelUpMechanicalSkillBonus,levelUpDiplomacySkillBonus);
 		displayText.text += "Victory in Acheron earns power--wounds knit and skills are honed.\n\n";
 		displayText.text += hero.getName () + "'s maximum and current health improve by " + "<color=#00ff00ff>" + levelUpHealthBonus + "</color>.\n" + 
-		"Combat Skill +" + levelUpCombatSkillBonus + "%! Mechanical Skill +" + levelUpMechanicalSkillBonus + "%! Diplomacy Skill +" + levelUpDiplomacySkillBonus + "%!\n";
+		"Combat Skill +" + levelUpCombatSkillBonus + "%! Mechanical Skill +" + levelUpMechanicalSkillBonus + "%! Diplomacy Skill +" + levelUpDiplomacySkillBonus + "%!\n\n";
 
 		EncounterPicker();
 
-		DisplayStats ();
+		//DisplayStats ();
 		}
 
 	public void GameOver ()	{

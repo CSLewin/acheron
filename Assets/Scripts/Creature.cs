@@ -99,7 +99,7 @@ public class Creature {
 	public string getName ()
 	{
 		//return creatureName;
-		return "<b><color=purple>" + creatureName + "</color></b>"; // always display a creature's name in bold
+		return "<b><color=blue>" + creatureName + "</color></b>"; // always display a creature's name in bold
 	}
 
 }
