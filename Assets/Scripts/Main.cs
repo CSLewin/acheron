@@ -69,12 +69,12 @@ public class Main : MonoBehaviour {
 			{
 				encounterType = "trap";
 				trap = SpawnTrap ();
-				Debug.Log("SpawnTrap has selected " + trap.getTrapName());
+				Debug.Log("SpawnTrap has selected '" + trap.getTrapName() + "'");
 				AnnounceHeroStats ();
 				displayText.text += hero.getName() + " notices " + trap.getTrapName() + ". This is clearly a trap! The mechanism " + trap.getDisarmDifficultyDescription() + ".\n\n" + 
 
 				"Press (A) to try to disarm it.\n" + 
-				"Beware! Success will bypass this danger without incident, but failing to disarm the trap may result in GREIVOUS harm.\n\n" + 
+				"Beware! Success guarantees safety; failure may result in GREIVOUS harm.\n\n" + 
 
 				"Press (L) to draw your weapon and smash the mechanism instead.\n" + 
 				"This will certainly activate the trap, but you'll be ready for it and <i>might</i> suffer lesser harm in the process.";
@@ -114,15 +114,25 @@ public class Main : MonoBehaviour {
 			trapTriggered = false;
 			HeroVictory ();
 		} else {
-			if (hero.isDead ()) {
-				playerKilledBy = trap.getDamageDescription();
-				GameOver ();
-			}  else DisplayStats ();
+			// Hero tried to disarm the trap and failed to do so. Check if the trap damage killed the hero and go to Game Over scene if it did. 
+			// Otherwise, go up one level out of DisarmTrapSequence to Update, where you'll now only have the option to Smash the trap.
+			// Things that need to show up specifically when the hero is trying to smash the trap should go into SmashTrapSequence().
+			if (hero.isDead ()) 
+				{
+					playerKilledBy = trap.getDamageDescription();
+					GameOver ();
+				}  //else DisplayStats (); // I've commented this DisplayStats() out because it was showing a TEST GOBLIN result if you tried to disarm a trap and failed. I'm leaving it here as reference and example to myself.
 		}
 	}
 
 	public void TrapDisarm (Trap trap) {
+		// Note: The way that difficult traps make the disarm check harder is by subtracting a negative number (their difficulty value) from the d100 roll, on which it is better to roll a low number.
+		// This is needlessly complicated, but the code works, and so it remains as such for now. If you wanted to clear this up, add trap.getDisarmDifficulty to disarmAttempt rather than subtracting it AND
+		// change trapDisarmDifficultyValue to a positive number; this would make it so that you're trying to roll a low number on the MechanicalSkill check but the trap is *adding* to your final result.
+		// Six of one, half a dozen of another.
+
 		int disarmAttempt = (Random.Range (1, 101) - trap.getDisarmDifficulty());
+		Debug.Log("Hero's disarm attempt base roll was " + (disarmAttempt + trap.getDisarmDifficulty()) + " with an additional penalty of " + trap.getDisarmDifficulty() + " for a result of " + disarmAttempt);
 		if (disarmAttempt <= hero.getMechanicalSkill ()) {
 			displayText.text += hero.getName () + " rolled " + disarmAttempt + " under " + hero.getCombatSkill () + ". The trap is disarmed!\n";
 			trap.applyDamage(trap.getMaxHealth()); //kill the trap on a successful disarm attempt
@@ -130,7 +140,9 @@ public class Main : MonoBehaviour {
 		} else if (disarmAttempt > hero.getMechanicalSkill  ()) {
 			displayText.text += hero.getName () + " rolled " + disarmAttempt + " over " + hero.getMechanicalSkill () + "--the trap springs to life mere inches away!\n\n";
 			trapTriggered = true;
-			int trapDamage = (Random.Range(1,4) * trap.getTrapDamage());
+			int trapDamageMultiplier = (Random.Range(1,4));
+			int trapDamage = trapDamageMultiplier * trap.getTrapDamage();
+			Debug.Log("Trap base damage of " + trap.getTrapDamage() + " is multiplied by " + trapDamageMultiplier + " for a total of " + trapDamageMultiplier * trap.getTrapDamage());
 			hero.applyDamage(trapDamage);
 			displayText.text += "A " + trap.getDamageDescription() + " inflicts " + trapDamage + " damage to " + hero.getName() + ".\n\n" + 
 
@@ -148,13 +160,27 @@ public class Main : MonoBehaviour {
 		displayText.text += "* * * * ROUND " + combatRound + " * * * *\n\n";
 		trapTriggered = true;
 
-		Smash(trap, hero);
+		// The hero attempts to damage the trap.
+		Smash (trap, hero);
 
-		int trapDamage = trap.getTrapDamage();
-		hero.applyDamage(trapDamage);
-		displayText.text += "A " + trap.getDamageDescription() + " inflicts " + trapDamage + " damage to " + hero.getName() + ".\n\n";
+		// The trap doesn't roll to attack; it automatically deals its damage every round!
+		int trapDamage = trap.getTrapDamage ();
+		hero.applyDamage (trapDamage);
+		displayText.text += "A " + trap.getDamageDescription () + " inflicts " + trapDamage + " damage to " + hero.getName () + ".\n\n";
 
 		displayText.text += "Press (L) to smash the mechanism!\n\n";
+
+		// End this violence if either the hero or the trap are slain.
+		if (trap.isDead ()) {
+			trapTriggered = false;
+			HeroVictory ();
+		}  else {
+			if (hero.isDead ()) 
+				{
+					playerKilledBy = trap.getDamageDescription();
+					GameOver ();
+				}  else DisplayStats (); // I've commented this DisplayStats() out because it was showing a TEST GOBLIN result if you tried to disarm a trap and failed. I'm leaving it here as reference and example to myself.
+		}
 	}
 
 	public Creature SpawnEnemy () {
@@ -167,16 +193,16 @@ public class Main : MonoBehaviour {
 			if (EnemyPicker == 6) {return new Creature("Bog Priest", Random.Range(35,46), "charmed and blackened claws", 10, 50);}
 			if (EnemyPicker == 7) {return new Creature("Frothing Jotunkin", Random.Range(55,65), "etched iron mallet", 25, 70);}
 			if (EnemyPicker == 8) {return new Creature("Seething Rune-Slave", Random.Range(55,65), "crushing grasp", 25, 70);}
-			if (EnemyPicker == 9) {return new Creature("Serpent-Priest Yddremel The Devoted", Random.Range(55,65), "crashing ophidian spellcraft", 45, 70);}
+			if (EnemyPicker == 9) {return new Creature("Serpent-Priest Yddremel", Random.Range(55,65), "crashing ophidian spellcraft", 45, 70);}
 				else throw new System.InvalidOperationException("EnemyPicker in SpawnEnemy() is returning something out of bounds.");
 		}
 
 	public Trap SpawnTrap ()
 	{
 		int TrapPicker = Random.Range (1, 4);
-			if (TrapPicker == 1) {return new Trap ("a flagstone hallway marred by deep gouges in the stone", 1, "razored bronze crescent", Random.Range (3, 19), 20);}
-			if (TrapPicker == 2) {return new Trap ("a panel on the wall covered in suspicious holes", 2, "toxin-coated dart", Random.Range (3, 19), 20);}
-			if (TrapPicker == 3) {return new Trap ("cracks on the floor, above which is a bit of ceiling constructed from a single, large block", 3, "plummeting stone block", Random.Range (3, 19), 20);}
+			if (TrapPicker == 1) {return new Trap ("a flagstone hallway marred by deep gouges in the stone", 0, "razored bronze crescent", Random.Range (3, 19), 20);}
+			if (TrapPicker == 2) {return new Trap ("a panel on the wall covered in suspicious holes", 1, "toxin-coated dart", Random.Range (3, 19), 20);}
+			if (TrapPicker == 3) {return new Trap ("cracks on the floor, above which is a bit of ceiling constructed from a single, large block", 2, "plummeting stone block", Random.Range (3, 19), 20);}
 				else throw new System.InvalidOperationException("TrapPicker in SpawnTrap() is returning something out of bounds.");
 	}
 
@@ -196,11 +222,21 @@ public class Main : MonoBehaviour {
 			"(or <b><color=red>" + 2 * creature.getWeaponDamage () + "</color></b> on a critical hit.)\n\n";
 	}
 
+	public void AnnounceTrapStats (Trap trap)
+	{
+		string announceTrapDamage = trap.getTrapDamage().ToString();
+		displayText.text += "The deadly trap: <color=#00ff00ff>" + trap.getCurrentHealth() + "/" + trap.getMaxHealth() + "</color>" + " health\n";
+		displayText.text += hero.getName() + " will be struck by " + trap.getDamageDescription() + " every round for <b><color=red>" + announceTrapDamage + "</color></b> damage.\n\n";
+	}
+
 	public void DisplayStats() {
 		displayText.text += "* * * * * * * * * *\n";
 		AnnounceHeroStats();
 
-		AnnounceStats (foe);
+		if (encounterType == "enemy") 
+			{AnnounceStats (foe);} 
+		else if (encounterType == "trap") 
+			{AnnounceTrapStats (trap);}
 
 		displayText.text += "* * * * * * * * * *\n";
 	}
@@ -251,7 +287,7 @@ public class Main : MonoBehaviour {
 		if (encounterType == "enemy") {
 			displayText.text = foe.getName () + " is slain!\n";
 		} else if (encounterType == "trap") {
-			displayText.text = trap.getTrapName() + " is defeated!\n";
+			displayText.text = "The trap is defeated!\n";
 		}
 
 		hero.addDefeatedFoe ();

@@ -23,17 +23,17 @@ public class Trap {
 		if (trapDisarmDifficultyValue == 0) 
 			{
 				this.trapDisarmDifficultyValue = 0;
-				this.trapDisarmDifficultyDescription = "<color=white>looks simple to disarm (-0 to Mechanical Skill)</color>";
+				this.trapDisarmDifficultyDescription = "<color=white>looks simple to disarm (Mechanical Skill penalty of 0)</color>";
 			}
 		if (trapDisarmDifficultyValue == 1) 
 			{
 				this.trapDisarmDifficultyValue = -15;
-			this.trapDisarmDifficultyDescription = "<color=yellow>is of concerning difficulty to bypass (-15% to Mechanical Skill)</color>";
+			this.trapDisarmDifficultyDescription = "<color=yellow>is of concerning difficulty to bypass (Mechanical Skill penalty of 15)</color>";
 			}
 		if (trapDisarmDifficultyValue == 2) 
 			{
 				this.trapDisarmDifficultyValue = -30;
-			this.trapDisarmDifficultyDescription = "<color=orange>is fiendishly complex to understand, let alone disable (-30% to Mechanical Skill)</color>";
+			this.trapDisarmDifficultyDescription = "<color=orange>is fiendishly complex to understand, let alone disable (Mechanical Skill penalty of 30)</color>";
 			}
 			//else throw new System.InvalidOperationException("trapDisarmDifficultyValue is not an acceptable value.");
 		this.trapDamageDescription = trapDamageDescription;
