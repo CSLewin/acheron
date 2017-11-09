@@ -52,10 +52,11 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Creature.cs" />
-     <Compile Include="Assets\Scripts\Housekeeping\GameOverTextController.cs" />
-     <Compile Include="Assets\Scripts\Housekeeping\LevelManager.cs" />
-     <Compile Include="Assets\Scripts\Housekeeping\MusicPlayer.cs" />
+     <Compile Include="Assets\Scripts\CreatureController.cs" />
+     <Compile Include="Assets\Scripts\GameOverTextController.cs" />
+     <Compile Include="Assets\Scripts\LevelManager.cs" />
      <Compile Include="Assets\Scripts\Main.cs" />
+     <Compile Include="Assets\Scripts\MusicPlayer.cs" />
      <Compile Include="Assets\Scripts\Trap.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>J:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
