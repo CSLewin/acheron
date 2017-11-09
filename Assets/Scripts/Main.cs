@@ -9,13 +9,15 @@ public class Main : MonoBehaviour {
 	public Text displayText = null;
 
 	Hero hero = new Hero("Captain Basharat Wellington", 70, 40, 55, "silver-chased tulwar", 15, 100, 0);
-	Creature foe = new Creature("Test Goblin", 30, "poo-covered test stick", 5, 35);
+	public static Creature foe = new Creature("Test Goblin", 30, "poo-covered test stick", 5, 35);
 	Trap trap = new Trap("Test Trap Description", 1, "test trap damage name", 1, 20);
 
 	private int combatRound = 0;
+
 	public static int killcount;
 	public static string playerKilledBy = "DEBUG_VALUE";
 	public static string playerName = "DEBUG_VALUE"; 
+
 	public string encounterType;
 	public bool trapTriggered;
 
