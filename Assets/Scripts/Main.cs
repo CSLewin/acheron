@@ -92,6 +92,8 @@ public class Main : MonoBehaviour {
 		//hero attacks foe
 		Fight (hero, foe);
 		if (foe.isDead ()) {
+			// debug code for trying to get SFX working:
+			Debug.Log("foe.isDead() returned as True");
 			//if foe is slain, clear the UI, announce foe slain, level up the hero, and display the new hero stats
 			HeroVictory ();
 			//update and display stats, then wait for a button press to start Combat Sequence over.
